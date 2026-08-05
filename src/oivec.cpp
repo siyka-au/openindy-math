@@ -311,11 +311,13 @@ OiVec OiVec::mult(const double &value, const OiVec &v){
 
 void OiVec::writeTo(QString filename) {
     QFile file(filename);
-    file.open(QIODevice::WriteOnly);
+    if(!file.open(QIODevice::WriteOnly)){
+        throw runtime_error("Could not open file for writing");
+    }
     QTextStream stream(&file);
     for(int row=0; row<this->getSize(); row++){
         stream << QString::number(this->getAt(row), 'f', 10);
-        stream << endl;
+        stream << Qt::endl;
     }
     file.close();
 }

@@ -25,6 +25,7 @@
 
 # directories
 bin/
+/build/
 
 # Qt-es
 

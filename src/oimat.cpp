@@ -636,14 +636,16 @@ OiVec OiMat::getQuaternion(const double &rx, const double &ry, const double &rz)
 
 void OiMat::writeTo(QString filename){
     QFile file(filename);
-    file.open(QIODevice::WriteOnly);
+    if(!file.open(QIODevice::WriteOnly)){
+        throw runtime_error("Could not open file for writing");
+    }
     QTextStream stream(&file);
     for(int row=0; row<this->getRowCount(); row++){
         for(int col=0; col<this->getColCount();col++){
             stream << QString::number(this->getAt(row, col), 'f', 10);
             stream << "\t";
         }
-        stream << endl;
+        stream << Qt::endl;
     }
     file.close();
 }
