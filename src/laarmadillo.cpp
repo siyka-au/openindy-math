@@ -339,7 +339,7 @@ void LAArmadillo::oiMat2Arma(arma::mat &result, const OiMat &m){
  * \param v
  */
 void LAArmadillo::arma2OiVec(OiVec &result, const arma::vec &v){
-    for(int i = 0; i < v.n_rows; i++){
+    for(int i = 0; i < static_cast<int>(v.n_rows); i++){
         result.setAt(i, v[i]);
     }
 }
@@ -350,8 +350,8 @@ void LAArmadillo::arma2OiVec(OiVec &result, const arma::vec &v){
  * \param m
  */
 void LAArmadillo::arma2OiMat(OiMat &result, const arma::mat &m){
-    for(int i = 0; i < m.n_rows; i++){
-        for(int j = 0; j < m.n_cols; j++){
+    for(int i = 0; i < static_cast<int>(m.n_rows); i++){
+        for(int j = 0; j < static_cast<int>(m.n_cols); j++){
             result.setAt(i, j, m.at(i, j));
         }
     }

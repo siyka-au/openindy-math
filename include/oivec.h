@@ -25,6 +25,7 @@ class OI_MATH_EXPORT OiVec
 public:
     OiVec();
     OiVec(const int &size);
+    OiVec(const OiVec&) = default;
     ~OiVec();
 
     static LinearAlgebra *myLinearAlgebra;

@@ -23,6 +23,7 @@ class OI_MATH_EXPORT OiMat
 public:
     OiMat();
     OiMat(const int &rows, const int &cols);
+    OiMat(const OiMat&) = default;
 
     static LinearAlgebra *myLinearAlgebra;
 
@@ -33,8 +34,8 @@ private:
 public:
 
     double getAt(const int &row, const int &col) const;
-    unsigned int getRowCount() const;
-    unsigned int getColCount() const;
+    int getRowCount() const;
+    int getColCount() const;
     void getRow(OiVec &result, const int &row) const;
     void getCol(OiVec &result, const int &col) const;
 

@@ -19,6 +19,10 @@ add_library(OpenIndyMath SHARED
     src/chooselalib.cpp
 )
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(OpenIndyMath PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
 target_compile_definitions(OpenIndyMath PRIVATE OI_MATH_LIB)
 
 target_include_directories(OpenIndyMath

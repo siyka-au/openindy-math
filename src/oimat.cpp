@@ -40,7 +40,7 @@ double OiMat::getAt(const int &row, const int &col) const{
  * \brief OiMat::getRowCount
  * \return
  */
-unsigned int OiMat::getRowCount() const{
+int OiMat::getRowCount() const{
     return this->rows;
 }
 
@@ -48,7 +48,7 @@ unsigned int OiMat::getRowCount() const{
  * \brief OiMat::getColCount
  * \return
  */
-unsigned int OiMat::getColCount() const{
+int OiMat::getColCount() const{
     return this->cols;
 }
 
@@ -133,7 +133,7 @@ void OiMat::setAt(const int &row, const int &col, const double &value){
  * \param diagVec
  */
 void OiMat::diag(vector<double> diagVec){
-    if(diagVec.size() == this->rows && this->rows == this->cols){
+    if(static_cast<int>(diagVec.size()) == this->rows && this->rows == this->cols){
         for(int i = 0; i < this->rows; i++){
             for(int j = 0; j < this->rows; j++){
                 if(i == j){

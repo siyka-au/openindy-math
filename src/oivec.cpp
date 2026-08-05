@@ -30,7 +30,7 @@ OiVec::~OiVec(){
  * \return
  */
 double OiVec::getAt(int pos) const{
-    if(this->values.size() > pos){
+    if(static_cast<int>(this->values.size()) > pos){
         return this->values.at(pos);
     }else{
         throw runtime_error("Size of vector less than requested position");
@@ -63,7 +63,7 @@ void OiVec::set(vector<double> v){
  * \param value
  */
 void OiVec::setAt(const int &pos, const double &value){
-    if(this->values.size() > pos){
+    if(static_cast<int>(this->values.size()) > pos){
         this->values.at(pos) = value;
     }else{
         throw runtime_error("Size of vector less than requested position");

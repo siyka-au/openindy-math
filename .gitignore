@@ -31,6 +31,7 @@ bin/
 
 *.pro.user
 *.pro.user.*
+.qtcreator/
 moc_*.cpp
 qrc_*.cpp
 Makefile
