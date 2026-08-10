@@ -12,12 +12,22 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Armadillo REQUIRED)
 
-add_library(OpenIndyMath SHARED
+set(HEADERS
+    include/global.h
+    include/chooselalib.h
+    include/linearalgebra.h
+    include/oivec.h
+    include/oimat.h
+)
+
+set(SOURCES
     src/oivec.cpp
     src/oimat.cpp
     src/laarmadillo.cpp
     src/chooselalib.cpp
 )
+
+add_library(OpenIndyMath SHARED ${SOURCES} ${HEADERS})
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(OpenIndyMath PRIVATE -Wall -Wextra -Wpedantic)
