@@ -5,7 +5,7 @@
 
 using namespace oi::math;
 
-LinearAlgebra* OiMat::myLinearAlgebra = NULL;
+LinearAlgebra* OiMat::myLinearAlgebra = nullptr;
 
 OiMat::OiMat() {
   this->values.clear();

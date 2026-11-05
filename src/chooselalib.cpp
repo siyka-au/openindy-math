@@ -16,8 +16,8 @@ void ChooseLALib::setLinearAlgebra(LinearAlgebraLibrary lib) {
       OiMat::myLinearAlgebra = new LAArmadillo();
       break;
     default:
-      OiVec::myLinearAlgebra = NULL;
-      OiMat::myLinearAlgebra = NULL;
+      OiVec::myLinearAlgebra = nullptr;
+      OiMat::myLinearAlgebra = nullptr;
       break;
   }
 }

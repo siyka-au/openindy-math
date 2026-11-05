@@ -19,24 +19,24 @@ namespace math {
 class OI_MATH_EXPORT LAArmadillo : public LinearAlgebra {
  public:
   LAArmadillo();
-  ~LAArmadillo();
+  ~LAArmadillo() override;
 
-  void addIn(OiVec& result, const OiVec& v1, const OiVec& v2);
-  void addIn(OiMat& result, const OiMat& m1, const OiMat& m2);
-  void substract(OiVec& result, const OiVec& v1, const OiVec& v2);
-  void substract(OiMat& result, const OiMat& m1, const OiMat& m2);
-  void multiply(OiMat& result, const OiMat& m1, const OiMat& m2);
-  void multiply(OiVec& result, const OiMat& m, const OiVec& v);
-  void multiply(OiMat& result, const double& s, const OiMat& m);
-  void multiply(OiVec& result, const double& s, const OiVec& v);
-  bool invert(OiMat& result, const OiMat& m);
-  void transpose(OiMat& result, const OiMat& m);
-  bool svd(OiMat& u, OiVec& d, OiMat& v, const OiMat& x);
-  void cross(OiVec& result, const OiVec& a, const OiVec& b);
-  void dot(double& result, const OiVec& a, const OiVec& b);
-  void det(double& result, const OiMat& a);
-  bool solve(OiVec& x, const OiMat& A, const OiVec& b);
-  bool solve(OiMat& X, const OiMat& A, const OiMat& B);
+  void addIn(OiVec& result, const OiVec& v1, const OiVec& v2) override;
+  void addIn(OiMat& result, const OiMat& m1, const OiMat& m2) override;
+  void substract(OiVec& result, const OiVec& v1, const OiVec& v2) override;
+  void substract(OiMat& result, const OiMat& m1, const OiMat& m2) override;
+  void multiply(OiMat& result, const OiMat& m1, const OiMat& m2) override;
+  void multiply(OiVec& result, const OiMat& m, const OiVec& v) override;
+  void multiply(OiMat& result, const double& s, const OiMat& m) override;
+  void multiply(OiVec& result, const double& s, const OiVec& v) override;
+  bool invert(OiMat& result, const OiMat& m) override;
+  void transpose(OiMat& result, const OiMat& m) override;
+  bool svd(OiMat& u, OiVec& d, OiMat& v, const OiMat& x) override;
+  void cross(OiVec& result, const OiVec& a, const OiVec& b) override;
+  void dot(double& result, const OiVec& a, const OiVec& b) override;
+  void det(double& result, const OiMat& a) override;
+  bool solve(OiVec& x, const OiMat& A, const OiVec& b) override;
+  bool solve(OiMat& X, const OiMat& A, const OiMat& B) override;
 
  private:
   void oiVec2Arma(arma::vec& result, const OiVec& v);

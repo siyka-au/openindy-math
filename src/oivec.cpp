@@ -5,7 +5,7 @@
 
 using namespace oi::math;
 
-LinearAlgebra* OiVec::myLinearAlgebra = NULL;
+LinearAlgebra* OiVec::myLinearAlgebra = nullptr;
 
 OiVec::OiVec() { this->values.clear(); }
 
