@@ -2,28 +2,23 @@
 #define CHOOSELALIB_H
 
 #include "global.h"
-#include "oivec.h"
 #include "oimat.h"
+#include "oivec.h"
 
-namespace oi{
-namespace math{
+namespace oi {
+namespace math {
 
 /*!
  * \brief The ChooseLALib class
  */
-class OI_MATH_EXPORT ChooseLALib
-{
-public:
+class OI_MATH_EXPORT ChooseLALib {
+ public:
+  enum LinearAlgebraLibrary { Armadillo };
 
-    enum LinearAlgebraLibrary{
-        Armadillo
-    };
-
-    static void setLinearAlgebra(LinearAlgebraLibrary lib);
-
+  static void setLinearAlgebra(LinearAlgebraLibrary lib);
 };
 
-}
-}
+}  // namespace math
+}  // namespace oi
 
-#endif // CHOOSELALIB_H
+#endif  // CHOOSELALIB_H

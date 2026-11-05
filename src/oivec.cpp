@@ -1,27 +1,22 @@
 #include "oivec.h"
 
-#include "oimat.h"
 #include "linearalgebra.h"
+#include "oimat.h"
 
 using namespace oi::math;
 
 LinearAlgebra* OiVec::myLinearAlgebra = NULL;
 
-OiVec::OiVec()
-{
-    this->values.clear();
+OiVec::OiVec() { this->values.clear(); }
+
+OiVec::OiVec(const int& size) {
+  this->values.clear();
+  for (int i = 0; i < size; i++) {
+    this->values.push_back(0.0);
+  }
 }
 
-OiVec::OiVec(const int &size){
-    this->values.clear();
-    for(int i = 0; i < size; i++){
-        this->values.push_back(0.0);
-    }
-}
-
-OiVec::~OiVec(){
-
-}
+OiVec::~OiVec() {}
 
 /*!
  * \brief OiVec::getAt
@@ -29,13 +24,13 @@ OiVec::~OiVec(){
  * \param pos
  * \return
  */
-double OiVec::getAt(int pos) const{
-    if(static_cast<int>(this->values.size()) > pos){
-        return this->values.at(pos);
-    }else{
-        throw runtime_error("Size of vector less than requested position");
-        return -1.0;
-    }
+double OiVec::getAt(int pos) const {
+  if (static_cast<int>(this->values.size()) > pos) {
+    return this->values.at(pos);
+  } else {
+    throw runtime_error("Size of vector less than requested position");
+    return -1.0;
+  }
 }
 
 /*!
@@ -43,18 +38,14 @@ double OiVec::getAt(int pos) const{
  * Returns the size of the vector
  * \return
  */
-int OiVec::getSize() const{
-    return this->values.size();
-}
+int OiVec::getSize() const { return this->values.size(); }
 
 /*!
  * \brief OiVec::set
  * Replace the list by another
  * \param v
  */
-void OiVec::set(vector<double> v){
-    this->values = v;
-}
+void OiVec::set(vector<double> v) { this->values = v; }
 
 /*!
  * \brief OiVec::setAt
@@ -62,12 +53,12 @@ void OiVec::set(vector<double> v){
  * \param pos
  * \param value
  */
-void OiVec::setAt(const int &pos, const double &value){
-    if(static_cast<int>(this->values.size()) > pos){
-        this->values.at(pos) = value;
-    }else{
-        throw runtime_error("Size of vector less than requested position");
-    }
+void OiVec::setAt(const int& pos, const double& value) {
+  if (static_cast<int>(this->values.size()) > pos) {
+    this->values.at(pos) = value;
+  } else {
+    throw runtime_error("Size of vector less than requested position");
+  }
 }
 
 /*!
@@ -75,27 +66,25 @@ void OiVec::setAt(const int &pos, const double &value){
  * Add an element at the end of the vector
  * \param value
  */
-void OiVec::add(const double &value){
-    this->values.push_back(value);
-}
+void OiVec::add(const double& value) { this->values.push_back(value); }
 
 /*!
  * \brief OiVec::removeLast
  */
-void OiVec::removeLast(){
-    if(this->values.size() > 0){
-        this->values.pop_back();
-    }
+void OiVec::removeLast() {
+  if (this->values.size() > 0) {
+    this->values.pop_back();
+  }
 }
 
 /*!
  * \brief OiVec::replace
  */
-void OiVec::replace(const OiVec &v){
-    this->values.clear();
-    for(int i = 0; i < v.getSize(); i++){
-        this->add(v.getAt(i));
-    }
+void OiVec::replace(const OiVec& v) {
+  this->values.clear();
+  for (int i = 0; i < v.getSize(); i++) {
+    this->add(v.getAt(i));
+  }
 }
 
 /*!
@@ -104,21 +93,23 @@ void OiVec::replace(const OiVec &v){
  * \param v
  * \return
  */
-OiVec& OiVec::operator =(const OiVec &v){
-    if(this->getSize() == v.getSize()){ //sizes of vectors need to be equal...
-        for(int i = 0; i < this->getSize(); i++){
-            this->setAt(i, v.getAt(i));
-        }
-        return *this;
-    }else if(this->getSize() == 0){ //...or this vector has size 0 (is undefined)
-        for(int i = 0; i < v.getSize(); i++){
-            this->add(v.getAt(i));
-        }
-        return *this;
-    }else{
-        throw logic_error("A vector cannot be assigned to another vector with a different size");
-        return *this;
+OiVec& OiVec::operator=(const OiVec& v) {
+  if (this->getSize() == v.getSize()) {  // sizes of vectors need to be equal...
+    for (int i = 0; i < this->getSize(); i++) {
+      this->setAt(i, v.getAt(i));
     }
+    return *this;
+  } else if (this->getSize() ==
+             0) {  //...or this vector has size 0 (is undefined)
+    for (int i = 0; i < v.getSize(); i++) {
+      this->add(v.getAt(i));
+    }
+    return *this;
+  } else {
+    throw logic_error(
+        "A vector cannot be assigned to another vector with a different size");
+    return *this;
+  }
 }
 
 /*!
@@ -127,15 +118,15 @@ OiVec& OiVec::operator =(const OiVec &v){
  * \param v
  * \return
  */
-OiVec OiVec::operator+(const OiVec &v) const{
-    if(this->getSize() == v.getSize()){
-        OiVec result(v.getSize());
-        OiVec::myLinearAlgebra->addIn(result, *this, v);
-        return result;
-    }else{
-        throw logic_error("Cannot add two vectors of different size");
-        return OiVec();
-    }
+OiVec OiVec::operator+(const OiVec& v) const {
+  if (this->getSize() == v.getSize()) {
+    OiVec result(v.getSize());
+    OiVec::myLinearAlgebra->addIn(result, *this, v);
+    return result;
+  } else {
+    throw logic_error("Cannot add two vectors of different size");
+    return OiVec();
+  }
 }
 
 /*!
@@ -144,15 +135,15 @@ OiVec OiVec::operator+(const OiVec &v) const{
  * \param v
  * \return
  */
-OiVec OiVec::operator-(const OiVec &v) const{
-    if(this->getSize() == v.getSize()){
-        OiVec result(v.getSize());
-        OiVec::myLinearAlgebra->substract(result, *this, v);
-        return result;
-    }else{
-        throw logic_error("Cannot substract two vectors of different size");
-        return OiVec();
-    }
+OiVec OiVec::operator-(const OiVec& v) const {
+  if (this->getSize() == v.getSize()) {
+    OiVec result(v.getSize());
+    OiVec::myLinearAlgebra->substract(result, *this, v);
+    return result;
+  } else {
+    throw logic_error("Cannot substract two vectors of different size");
+    return OiVec();
+  }
 }
 
 /*!
@@ -160,14 +151,14 @@ OiVec OiVec::operator-(const OiVec &v) const{
  * \param v
  * \return
  */
-OiVec& OiVec::operator +=(const OiVec &v){
-    if(this->getSize() == v.getSize()){
-        OiVec::myLinearAlgebra->addIn(*this, *this, v);
-        return *this;
-    }else{
-        throw logic_error("Cannot add two vectors of different size");
-        return *this;
-    }
+OiVec& OiVec::operator+=(const OiVec& v) {
+  if (this->getSize() == v.getSize()) {
+    OiVec::myLinearAlgebra->addIn(*this, *this, v);
+    return *this;
+  } else {
+    throw logic_error("Cannot add two vectors of different size");
+    return *this;
+  }
 }
 
 /*!
@@ -175,30 +166,30 @@ OiVec& OiVec::operator +=(const OiVec &v){
  * \param v
  * \return
  */
-OiVec& OiVec::operator -=(const OiVec &v){
-    if(this->getSize() == v.getSize()){
-        OiVec::myLinearAlgebra->substract(*this, *this, v);
-        return *this;
-    }else{
-        throw logic_error("Cannot substract two vectors of different size");
-        return *this;
-    }
+OiVec& OiVec::operator-=(const OiVec& v) {
+  if (this->getSize() == v.getSize()) {
+    OiVec::myLinearAlgebra->substract(*this, *this, v);
+    return *this;
+  } else {
+    throw logic_error("Cannot substract two vectors of different size");
+    return *this;
+  }
 }
 
 /*!
  * \brief OiVec::normalize
  */
-void OiVec::normalize(){
-    double l = 0.0;
-    for(int i = 0; i < this->getSize(); i++){
-        l += this->getAt(i) * this->getAt(i);
+void OiVec::normalize() {
+  double l = 0.0;
+  for (int i = 0; i < this->getSize(); i++) {
+    l += this->getAt(i) * this->getAt(i);
+  }
+  if (l > 0.0) {
+    l = qSqrt(l);
+    for (int i = 0; i < this->getSize(); i++) {
+      this->setAt(i, this->getAt(i) / l);
     }
-    if(l > 0.0){
-        l = qSqrt(l);
-        for(int i = 0; i < this->getSize(); i++){
-            this->setAt(i, this->getAt(i) / l);
-        }
-    }
+  }
 }
 
 /*!
@@ -206,15 +197,15 @@ void OiVec::normalize(){
  * Calculate the transposed of this vector which is a matrix
  * \return
  */
-OiMat OiVec::t() const{
-    if(this->getSize() > 0){
-        OiMat result(1, this->getSize());
-        for(int i = 0; i < this->getSize(); i++){
-            result.setAt(0, i, this->getAt(i));
-        }
-        return result;
+OiMat OiVec::t() const {
+  if (this->getSize() > 0) {
+    OiMat result(1, this->getSize());
+    for (int i = 0; i < this->getSize(); i++) {
+      result.setAt(0, i, this->getAt(i));
     }
-    return OiMat();
+    return result;
+  }
+  return OiMat();
 }
 
 /*!
@@ -224,17 +215,19 @@ OiMat OiVec::t() const{
  * \param a
  * \param b
  */
-void OiVec::cross(OiVec &result, const OiVec &a, const OiVec &b){
-    if(a.getSize() == b.getSize() && a.getSize() == 3 && (result.getSize() == 0 || result.getSize() == a.getSize())){
-        if(result.getSize() == 0){
-            for(int i = 0; i < a.getSize(); i++){
-                result.add(0.0);
-            }
-        }
-        OiVec::myLinearAlgebra->cross(result, a, b);
-    }else{
-        throw logic_error("Cannot calculate cross product of non - 3 dimesnional vectors");
+void OiVec::cross(OiVec& result, const OiVec& a, const OiVec& b) {
+  if (a.getSize() == b.getSize() && a.getSize() == 3 &&
+      (result.getSize() == 0 || result.getSize() == a.getSize())) {
+    if (result.getSize() == 0) {
+      for (int i = 0; i < a.getSize(); i++) {
+        result.add(0.0);
+      }
     }
+    OiVec::myLinearAlgebra->cross(result, a, b);
+  } else {
+    throw logic_error(
+        "Cannot calculate cross product of non - 3 dimesnional vectors");
+  }
 }
 
 /*!
@@ -244,12 +237,13 @@ void OiVec::cross(OiVec &result, const OiVec &a, const OiVec &b){
  * \param a
  * \param b
  */
-void OiVec::dot(double &result, const OiVec &a, const OiVec &b){
-    if(a.getSize() == b.getSize() && a.getSize() > 0){
-        OiVec::myLinearAlgebra->dot(result, a, b);
-    }else{
-        throw logic_error("Cannot calculate scalar product of vectors with incompatible size");
-    }
+void OiVec::dot(double& result, const OiVec& a, const OiVec& b) {
+  if (a.getSize() == b.getSize() && a.getSize() > 0) {
+    OiVec::myLinearAlgebra->dot(result, a, b);
+  } else {
+    throw logic_error(
+        "Cannot calculate scalar product of vectors with incompatible size");
+  }
 }
 
 /*!
@@ -259,41 +253,41 @@ void OiVec::dot(double &result, const OiVec &a, const OiVec &b){
  * \param q1
  * \param q2
  */
-void OiVec::concatenateRotations(OiVec &q, const OiVec &q1, const OiVec &q2){
+void OiVec::concatenateRotations(OiVec& q, const OiVec& q1, const OiVec& q2) {
+  // rotate by q2 and afterwards by q1
+  // q = q2 * q1 == R = R1 * R2
+  // q = [w, vx, vy, vz]
 
-    //rotate by q2 and afterwards by q1
-    //q = q2 * q1 == R = R1 * R2
-    //q = [w, vx, vy, vz]
-
-    if(q.getSize() == 0){
-        for(int i = 0; i < 4; i++){
-            q.add(0.0);
-        }
+  if (q.getSize() == 0) {
+    for (int i = 0; i < 4; i++) {
+      q.add(0.0);
     }
+  }
 
-    if(q.getSize() != 4 || q1.getSize() != 4 || q2.getSize() != 4){
-        throw logic_error("Cannot concatenate two quaternion-rotations of incompatible size");
-    }
+  if (q.getSize() != 4 || q1.getSize() != 4 || q2.getSize() != 4) {
+    throw logic_error(
+        "Cannot concatenate two quaternion-rotations of incompatible size");
+  }
 
-    OiVec a(3), b(3);
-    a.setAt(0, q1.getAt(1));
-    a.setAt(1, q1.getAt(2));
-    a.setAt(2, q1.getAt(3));
-    b.setAt(0, q2.getAt(1));
-    b.setAt(1, q2.getAt(2));
-    b.setAt(2, q2.getAt(3));
+  OiVec a(3), b(3);
+  a.setAt(0, q1.getAt(1));
+  a.setAt(1, q1.getAt(2));
+  a.setAt(2, q1.getAt(3));
+  b.setAt(0, q2.getAt(1));
+  b.setAt(1, q2.getAt(2));
+  b.setAt(2, q2.getAt(3));
 
-    OiVec n;
-    double s;
-    OiVec::dot(s, a, b);
-    OiVec::cross(n, a, b);
+  OiVec n;
+  double s;
+  OiVec::dot(s, a, b);
+  OiVec::cross(n, a, b);
 
-    OiVec qv = n + q1.getAt(0) * b + q2.getAt(0) * a;
+  OiVec qv = n + q1.getAt(0) * b + q2.getAt(0) * a;
 
-    q.setAt(0, q1.getAt(0) * q2.getAt(0) - s);
-    q.setAt(1, qv.getAt(0));
-    q.setAt(2, qv.getAt(1));
-    q.setAt(3, qv.getAt(2));
+  q.setAt(0, q1.getAt(0) * q2.getAt(0) - s);
+  q.setAt(1, qv.getAt(0));
+  q.setAt(2, qv.getAt(1));
+  q.setAt(3, qv.getAt(2));
 }
 
 /*!
@@ -303,27 +297,27 @@ void OiVec::concatenateRotations(OiVec &q, const OiVec &q1, const OiVec &q2){
  * \param v
  * \return
  */
-OiVec OiVec::mult(const double &value, const OiVec &v){
-    OiVec result(v.getSize());
-    OiVec::myLinearAlgebra->multiply(result, value, v);
-    return result;
+OiVec OiVec::mult(const double& value, const OiVec& v) {
+  OiVec result(v.getSize());
+  OiVec::myLinearAlgebra->multiply(result, value, v);
+  return result;
 }
 
 void OiVec::writeTo(QString filename) {
-    QFile file(filename);
-    if(!file.open(QIODevice::WriteOnly)){
-        throw runtime_error("Could not open file for writing");
-    }
-    QTextStream stream(&file);
-    for(int row=0; row<this->getSize(); row++){
-        stream << QString::number(this->getAt(row), 'f', 10);
-        stream << Qt::endl;
-    }
-    file.close();
+  QFile file(filename);
+  if (!file.open(QIODevice::WriteOnly)) {
+    throw runtime_error("Could not open file for writing");
+  }
+  QTextStream stream(&file);
+  for (int row = 0; row < this->getSize(); row++) {
+    stream << QString::number(this->getAt(row), 'f', 10);
+    stream << Qt::endl;
+  }
+  file.close();
 }
 
 double OiVec::length() {
-    double dot = 0.0;
-    OiVec::dot(dot, *this, *this);
-    return qSqrt(dot);
+  double dot = 0.0;
+  OiVec::dot(dot, *this, *this);
+  return qSqrt(dot);
 }
