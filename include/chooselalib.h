@@ -13,7 +13,7 @@ namespace math {
  */
 class OI_MATH_EXPORT ChooseLALib {
  public:
-  enum LinearAlgebraLibrary { Armadillo };
+  enum class LinearAlgebraLibrary { Armadillo };
 
   static void setLinearAlgebra(LinearAlgebraLibrary lib);
 };

@@ -11,7 +11,7 @@ using namespace oi::math;
  */
 void ChooseLALib::setLinearAlgebra(LinearAlgebraLibrary lib) {
   switch (lib) {
-    case (Armadillo):
+    case (LinearAlgebraLibrary::Armadillo):
       OiVec::myLinearAlgebra = new LAArmadillo();
       OiMat::myLinearAlgebra = new LAArmadillo();
       break;
