@@ -1,5 +1,7 @@
 #include "oimat.h"
 
+#include <math.h>
+
 #include "linearalgebra.h"
 #include "oivec.h"
 
@@ -598,8 +600,8 @@ OiVec OiMat::getQuaternion(const double& rx, const double& ry,
                            const double& rz) {
   oi::math::OiMat rotMat = oi::math::OiMat::getRotationMatrix(rx, ry, rz);
 
-  int factor;
-  double factor2;
+  int factor = 0;
+  double factor2 = NAN;
   if ((rotMat.getAt(0, 0) + rotMat.getAt(1, 1) + rotMat.getAt(2, 2)) > 0) {
     factor = 1;
   } else if ((rotMat.getAt(0, 0) > rotMat.getAt(1, 1)) &&

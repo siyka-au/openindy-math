@@ -1,5 +1,7 @@
 #include "oivec.h"
 
+#include <math.h>
+
 #include "linearalgebra.h"
 #include "oimat.h"
 
@@ -278,7 +280,7 @@ void OiVec::concatenateRotations(OiVec& q, const OiVec& q1, const OiVec& q2) {
   b.setAt(2, q2.getAt(3));
 
   OiVec n;
-  double s;
+  double s = NAN;
   OiVec::dot(s, a, b);
   OiVec::cross(n, a, b);
 
