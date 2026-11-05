@@ -7,16 +7,11 @@ using namespace oi::math;
 
 LinearAlgebra* OiMat::myLinearAlgebra = nullptr;
 
-OiMat::OiMat() {
-  this->values.clear();
-  this->rows = 0;
-  this->cols = 0;
-}
+OiMat::OiMat() : rows(0), cols(0) { this->values.clear(); }
 
-OiMat::OiMat(const int& rows, const int& cols) {
+OiMat::OiMat(const int& rows, const int& cols) : rows(rows), cols(cols) {
   this->values.clear();
-  this->rows = rows;
-  this->cols = cols;
+
   for (int i = 0; i < rows * cols; ++i) {
     this->values.push_back(0.0);
   }

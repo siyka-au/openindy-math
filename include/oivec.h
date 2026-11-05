@@ -23,7 +23,7 @@ using namespace std;
 class OI_MATH_EXPORT OiVec {
  public:
   OiVec();
-  OiVec(const int& size);
+  explicit OiVec(const int& size);
   OiVec(const OiVec&) = default;
   ~OiVec();
 
