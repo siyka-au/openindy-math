@@ -31,9 +31,9 @@ class OI_MATH_EXPORT OiMat {
   int rows, cols;
 
  public:
-  double getAt(const int& row, const int& col) const;
-  int getRowCount() const;
-  int getColCount() const;
+  [[nodiscard]] double getAt(const int& row, const int& col) const;
+  [[nodiscard]] int getRowCount() const;
+  [[nodiscard]] int getColCount() const;
   void getRow(OiVec& result, const int& row) const;
   void getCol(OiVec& result, const int& col) const;
 
@@ -62,10 +62,10 @@ class OI_MATH_EXPORT OiMat {
     return result;
   }
 
-  OiMat t() const;
-  OiMat inv() const;
+  [[nodiscard]] OiMat t() const;
+  [[nodiscard]] OiMat inv() const;
 
-  double det() const;
+  [[nodiscard]] double det() const;
 
   void svd(OiMat& u, OiVec& d, OiMat& v) const;
 

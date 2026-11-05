@@ -33,8 +33,8 @@ class OI_MATH_EXPORT OiVec {
   vector<double> values;
 
  public:
-  double getAt(int pos) const;
-  int getSize() const;
+  [[nodiscard]] double getAt(int pos) const;
+  [[nodiscard]] int getSize() const;
 
   void set(vector<double> v);
   void setAt(const int& pos, const double& value);
@@ -74,7 +74,7 @@ class OI_MATH_EXPORT OiVec {
 
   void normalize();
 
-  OiMat t() const;
+  [[nodiscard]] OiMat t() const;
 
   static void cross(OiVec& result, const OiVec& a, const OiVec& b);
   static void dot(double& result, const OiVec& a, const OiVec& b);
