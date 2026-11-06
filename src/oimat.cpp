@@ -1,6 +1,9 @@
 #include "oimat.h"
 
-#include <math.h>
+#include <cmath>
+#include <format>
+#include <fstream>
+#include <stdexcept>
 
 #include "linearalgebra.h"
 #include "oivec.h"
@@ -462,8 +465,8 @@ OiMat OiMat::getRotationMatrix(const double& angle, const OiVec& axis) {
     OiVec axisN = axis;
     axisN.normalize();
 
-    double w = qCos(angle / 2.0);
-    OiVec x = qSin(angle / 2.0) * axisN;
+    double w = std::cos(angle / 2.0);
+    OiVec x = std::sin(angle / 2.0) * axisN;
 
     result.setAt(
         0, 0, 1.0 - 2.0 * (x.getAt(1) * x.getAt(1) + x.getAt(2) * x.getAt(2)));
@@ -654,18 +657,15 @@ OiVec OiMat::getQuaternion(const double& rx, const double& ry,
   return quatVec;
 }
 
-void OiMat::writeTo(QString filename) {
-  QFile file(filename);
-  if (!file.open(QIODevice::WriteOnly)) {
+void OiMat::writeTo(const std::string& filename) const {
+  std::ofstream file(filename);
+  if (!file) {
     throw runtime_error("Could not open file for writing");
   }
-  QTextStream stream(&file);
   for (int row = 0; row < this->getRowCount(); row++) {
     for (int col = 0; col < this->getColCount(); col++) {
-      stream << QString::number(this->getAt(row, col), 'f', 10);
-      stream << "\t";
+      file << std::format("{:.10f}", this->getAt(row, col)) << '\t';
     }
-    stream << Qt::endl;
+    file << '\n';
   }
-  file.close();
 }

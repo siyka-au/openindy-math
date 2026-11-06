@@ -1,6 +1,9 @@
 #include "oivec.h"
 
-#include <math.h>
+#include <cmath>
+#include <format>
+#include <fstream>
+#include <stdexcept>
 
 #include "linearalgebra.h"
 #include "oimat.h"
@@ -187,7 +190,7 @@ void OiVec::normalize() {
     l += this->getAt(i) * this->getAt(i);
   }
   if (l > 0.0) {
-    l = qSqrt(l);
+    l = std::sqrt(l);
     for (int i = 0; i < this->getSize(); i++) {
       this->setAt(i, this->getAt(i) / l);
     }
@@ -305,21 +308,18 @@ OiVec OiVec::mult(const double& value, const OiVec& v) {
   return result;
 }
 
-void OiVec::writeTo(QString filename) {
-  QFile file(filename);
-  if (!file.open(QIODevice::WriteOnly)) {
+void OiVec::writeTo(const std::string& filename) const {
+  std::ofstream file(filename);
+  if (!file) {
     throw runtime_error("Could not open file for writing");
   }
-  QTextStream stream(&file);
   for (int row = 0; row < this->getSize(); row++) {
-    stream << QString::number(this->getAt(row), 'f', 10);
-    stream << Qt::endl;
+    file << std::format("{:.10f}", this->getAt(row)) << '\n';
   }
-  file.close();
 }
 
 double OiVec::length() {
   double dot = 0.0;
   OiVec::dot(dot, *this, *this);
-  return qSqrt(dot);
+  return std::sqrt(dot);
 }

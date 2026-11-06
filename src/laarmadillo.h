@@ -1,8 +1,6 @@
 #ifndef LAARMADILLO_H
 #define LAARMADILLO_H
 
-#include <QDebug>
-
 #include "armadillo"
 #include "global.h"
 #include "linearalgebra.h"

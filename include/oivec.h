@@ -1,10 +1,8 @@
 #ifndef OIVEC_H
 #define OIVEC_H
 
-#include <QDebug>
-#include <QFile>
-#include <QtCore/QtMath>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 #include "global.h"
@@ -86,7 +84,7 @@ class OI_MATH_EXPORT OiVec {
 
   static void concatenateRotations(OiVec& q, const OiVec& q1, const OiVec& q2);
 
-  void writeTo(QString filename);
+  void writeTo(const std::string& filename) const;
 
   double length();
 

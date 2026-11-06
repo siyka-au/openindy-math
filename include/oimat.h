@@ -1,8 +1,8 @@
 #ifndef OIMAT_H
 #define OIMAT_H
 
-#include <QFile>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 #include "global.h"
@@ -82,7 +82,7 @@ class OI_MATH_EXPORT OiMat {
   static OiVec getQuaternion(const double& rx, const double& ry,
                              const double& rz);
 
-  void writeTo(QString filename);
+  void writeTo(const std::string& filename) const;
 
  private:
   static void mult(OiMat& result, const double& value, const OiMat& m);

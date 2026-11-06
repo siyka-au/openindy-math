@@ -9,7 +9,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Armadillo REQUIRED)
 
 set(HEADERS
@@ -45,8 +44,6 @@ target_include_directories(OpenIndyMath
 )
 
 target_link_libraries(OpenIndyMath
-    PUBLIC
-        Qt6::Core
     PRIVATE
         ${ARMADILLO_LIBRARIES}
 )
