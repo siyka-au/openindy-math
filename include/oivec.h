@@ -25,6 +25,11 @@ class OI_MATH_EXPORT OiVec {
   OiVec();
   explicit OiVec(const int& size);
   OiVec(const OiVec&) = default;
+  // A moved-from OiVec is an empty (size 0) vector, which is a valid state.
+  // There is deliberately no move assignment: operator= only accepts a vector
+  // of equal size (or into an empty one) and throws otherwise, so assignment
+  // has to keep going through it.
+  OiVec(OiVec&&) noexcept = default;
   ~OiVec();
 
   static LinearAlgebra* myLinearAlgebra;
