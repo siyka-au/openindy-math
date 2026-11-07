@@ -31,6 +31,8 @@ add_library(OpenIndyMath SHARED ${SOURCES} ${HEADERS})
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(OpenIndyMath PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+# Source files and string literals are UTF-8; MSVC needs to be told.
+target_compile_options(OpenIndyMath PUBLIC $<$<CXX_COMPILER_ID:MSVC>:/utf-8>)
 
 target_compile_definitions(OpenIndyMath PRIVATE OI_MATH_LIB)
 
