@@ -1,5 +1,5 @@
-#ifndef CHOOSELALIB_H
-#define CHOOSELALIB_H
+#ifndef OI_MATH_CHOOSE_LA_LIB_H_
+#define OI_MATH_CHOOSE_LA_LIB_H_
 
 #include "global.h"
 #include "oi_mat.h"
@@ -21,4 +21,4 @@ class OI_MATH_EXPORT ChooseLALib {
 }  // namespace math
 }  // namespace oi
 
-#endif  // CHOOSELALIB_H
+#endif  // OI_MATH_CHOOSE_LA_LIB_H_

@@ -1,5 +1,5 @@
-#ifndef OIMAT_H
-#define OIMAT_H
+#ifndef OI_MATH_OI_MAT_H_
+#define OI_MATH_OI_MAT_H_
 
 #include <stdexcept>
 #include <string>
@@ -91,4 +91,4 @@ class OI_MATH_EXPORT OiMat {
 }  // namespace math
 }  // namespace oi
 
-#endif  // OIMAT_H
+#endif  // OI_MATH_OI_MAT_H_

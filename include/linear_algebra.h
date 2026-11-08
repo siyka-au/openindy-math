@@ -1,5 +1,5 @@
-#ifndef LINEARALGEBRA_H
-#define LINEARALGEBRA_H
+#ifndef OI_MATH_LINEAR_ALGEBRA_H_
+#define OI_MATH_LINEAR_ALGEBRA_H_
 
 #include "global.h"
 #include "oi_mat.h"
@@ -165,4 +165,4 @@ class OI_MATH_EXPORT LinearAlgebra {
 }  // namespace math
 }  // namespace oi
 
-#endif  // LINEARALGEBRA_H
+#endif  // OI_MATH_LINEAR_ALGEBRA_H_

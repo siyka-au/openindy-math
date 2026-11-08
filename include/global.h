@@ -1,5 +1,5 @@
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#ifndef OI_MATH_GLOBAL_H_
+#define OI_MATH_GLOBAL_H_
 
 // Symbol visibility for the shared library, with no dependency on Qt.
 #if defined(_WIN32) || defined(__CYGWIN__)
@@ -16,4 +16,4 @@
 #define OI_MATH_EXPORT OI_MATH_DECL_IMPORT
 #endif
 
-#endif  // GLOBAL_H
+#endif  // OI_MATH_GLOBAL_H_

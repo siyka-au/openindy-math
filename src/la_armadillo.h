@@ -1,5 +1,5 @@
-#ifndef LAARMADILLO_H
-#define LAARMADILLO_H
+#ifndef OI_MATH_SRC_LA_ARMADILLO_H_
+#define OI_MATH_SRC_LA_ARMADILLO_H_
 
 #include "armadillo"
 #include "global.h"
@@ -46,4 +46,4 @@ class OI_MATH_EXPORT LAArmadillo : public LinearAlgebra {
 }  // namespace math
 }  // namespace oi
 
-#endif  // LAARMADILLO_H
+#endif  // OI_MATH_SRC_LA_ARMADILLO_H_

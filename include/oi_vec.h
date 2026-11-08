@@ -1,5 +1,5 @@
-#ifndef OIVEC_H
-#define OIVEC_H
+#ifndef OI_MATH_OI_VEC_H_
+#define OI_MATH_OI_VEC_H_
 
 #include <stdexcept>
 #include <string>
@@ -95,4 +95,4 @@ class OI_MATH_EXPORT OiVec {
 }  // namespace math
 }  // namespace oi
 
-#endif  // OIVEC_H
+#endif  // OI_MATH_OI_VEC_H_
