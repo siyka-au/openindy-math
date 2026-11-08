@@ -3,9 +3,9 @@
 
 #include "armadillo"
 #include "global.h"
-#include "linearalgebra.h"
-#include "oimat.h"
-#include "oivec.h"
+#include "linear_algebra.h"
+#include "oi_mat.h"
+#include "oi_vec.h"
 
 namespace oi {
 namespace math {

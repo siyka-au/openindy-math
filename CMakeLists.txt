@@ -13,17 +13,17 @@ find_package(Armadillo REQUIRED)
 
 set(HEADERS
     include/global.h
-    include/chooselalib.h
-    include/linearalgebra.h
-    include/oivec.h
-    include/oimat.h
+    include/choose_la_lib.h
+    include/linear_algebra.h
+    include/oi_vec.h
+    include/oi_mat.h
 )
 
 set(SOURCES
-    src/oivec.cpp
-    src/oimat.cpp
-    src/laarmadillo.cpp
-    src/chooselalib.cpp
+    src/oi_vec.cpp
+    src/oi_mat.cpp
+    src/la_armadillo.cpp
+    src/choose_la_lib.cpp
 )
 
 add_library(OpenIndyMath SHARED ${SOURCES} ${HEADERS})

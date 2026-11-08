@@ -1,6 +1,6 @@
-#include "chooselalib.h"
+#include "choose_la_lib.h"
 
-#include "laarmadillo.h"
+#include "la_armadillo.h"
 
 using namespace oi::math;
 

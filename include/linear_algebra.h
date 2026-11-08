@@ -2,8 +2,8 @@
 #define LINEARALGEBRA_H
 
 #include "global.h"
-#include "oimat.h"
-#include "oivec.h"
+#include "oi_mat.h"
+#include "oi_vec.h"
 
 namespace oi {
 namespace math {

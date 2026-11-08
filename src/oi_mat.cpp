@@ -1,12 +1,12 @@
-#include "oimat.h"
+#include "oi_mat.h"
 
 #include <cmath>
 #include <format>
 #include <fstream>
 #include <stdexcept>
 
-#include "linearalgebra.h"
-#include "oivec.h"
+#include "linear_algebra.h"
+#include "oi_vec.h"
 
 using namespace oi::math;
 

@@ -1,4 +1,4 @@
-#include "laarmadillo.h"
+#include "la_armadillo.h"
 
 using namespace oi::math;
 
