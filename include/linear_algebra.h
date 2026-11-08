@@ -13,7 +13,12 @@ namespace math {
  */
 class OI_MATH_EXPORT LinearAlgebra {
  public:
-  virtual ~LinearAlgebra() {}
+  LinearAlgebra() = default;
+  LinearAlgebra(const LinearAlgebra&) = delete;
+  LinearAlgebra& operator=(const LinearAlgebra&) = delete;
+  LinearAlgebra(LinearAlgebra&&) = delete;
+  LinearAlgebra& operator=(LinearAlgebra&&) = delete;
+  virtual ~LinearAlgebra() = default;
 
   /*!
    * \brief addIn

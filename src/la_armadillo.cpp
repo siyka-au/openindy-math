@@ -313,7 +313,7 @@ bool LAArmadillo::solve(OiMat& X, const OiMat& A, const OiMat& B) {
  */
 void LAArmadillo::oiVec2Arma(arma::vec& result, const OiVec& v) {
   for (int i = 0; i < v.getSize(); i++) {
-    result[i] = v.getAt(i);
+    result(i) = v.getAt(i);
   }
 }
 
@@ -337,7 +337,7 @@ void LAArmadillo::oiMat2Arma(arma::mat& result, const OiMat& m) {
  */
 void LAArmadillo::arma2OiVec(OiVec& result, const arma::vec& v) {
   for (int i = 0; i < static_cast<int>(v.n_rows); i++) {
-    result.setAt(i, v[i]);
+    result.setAt(i, v(i));
   }
 }
 

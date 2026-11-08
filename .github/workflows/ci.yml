@@ -30,13 +30,14 @@ jobs:
       # Qt-free by contract: the core's scripts/check-no-qt.sh covers math as
       # well, from the openindy-core CI.
       - uses: astral-sh/setup-uv@v6
-      - name: cppcoreguidelines-owning-memory (must be clean)
+      # Every check enabled in .clang-tidy is a failing check, for the sources and the
+      # headers this repo owns (HeaderFilterRegex in .clang-tidy; the checkout directory
+      # is named openindy-math, which the regex anchors on).
+      - name: clang-tidy (.clang-tidy checks, must be clean)
         run: |
           git ls-files 'src/*.cpp' | xargs -P$(nproc) -n4 \
             uvx --from clang-tidy==$CLANG_TOOLS_VERSION clang-tidy -p build --quiet \
-              --checks='-*,cppcoreguidelines-owning-memory' \
-              --warnings-as-errors='cppcoreguidelines-owning-memory' \
-              --header-filter='.*/(include|src)/.*'
+              --warnings-as-errors='*'
 
   format-check:
     runs-on: ubuntu-24.04

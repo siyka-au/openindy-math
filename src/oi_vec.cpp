@@ -43,7 +43,7 @@ double OiVec::getAt(int pos) const {
  * Returns the size of the vector
  * \return
  */
-int OiVec::getSize() const { return this->values.size(); }
+int OiVec::getSize() const { return static_cast<int>(this->values.size()); }
 
 /*!
  * \brief OiVec::set

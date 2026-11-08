@@ -17,6 +17,10 @@ namespace math {
 class OI_MATH_EXPORT LAArmadillo : public LinearAlgebra {
  public:
   LAArmadillo();
+  LAArmadillo(const LAArmadillo&) = delete;
+  LAArmadillo& operator=(const LAArmadillo&) = delete;
+  LAArmadillo(LAArmadillo&&) = delete;
+  LAArmadillo& operator=(LAArmadillo&&) = delete;
   ~LAArmadillo() override;
 
   void addIn(OiVec& result, const OiVec& v1, const OiVec& v2) override;

@@ -3,12 +3,20 @@
 #include <cmath>
 #include <format>
 #include <fstream>
+#include <numbers>
 #include <stdexcept>
 
 #include "linear_algebra.h"
 #include "oi_vec.h"
 
 using namespace oi::math;
+
+namespace {
+constexpr double kQuarter =
+    0.25;  // quaternion w = sqrt(trace) / 2 -> component = factor / 4
+// Tolerance of the Euler-angle branch check in getAnglesFromRotationMatrix.
+constexpr double kAngleBranchTolerance = 0.01;
+}  // namespace
 
 LinearAlgebra* OiMat::myLinearAlgebra = nullptr;
 
@@ -465,21 +473,21 @@ OiMat OiMat::getRotationMatrix(const double& angle, const OiVec& axis) {
     OiVec axisN = axis;
     axisN.normalize();
 
-    double w = std::cos(angle / 2.0);
-    OiVec x = std::sin(angle / 2.0) * axisN;
+    double w = std::cos(angle / 2);
+    OiVec x = std::sin(angle / 2) * axisN;
 
-    result.setAt(
-        0, 0, 1.0 - 2.0 * (x.getAt(1) * x.getAt(1) + x.getAt(2) * x.getAt(2)));
-    result.setAt(0, 1, 2.0 * (x.getAt(0) * x.getAt(1) - w * x.getAt(2)));
-    result.setAt(0, 2, 2.0 * (x.getAt(0) * x.getAt(2) + w * x.getAt(1)));
-    result.setAt(1, 0, 2.0 * (x.getAt(0) * x.getAt(1) + w * x.getAt(2)));
-    result.setAt(
-        1, 1, 1.0 - 2.0 * (x.getAt(0) * x.getAt(0) + x.getAt(2) * x.getAt(2)));
-    result.setAt(1, 2, 2.0 * (x.getAt(1) * x.getAt(2) - w * x.getAt(0)));
-    result.setAt(2, 0, 2.0 * (x.getAt(0) * x.getAt(2) - w * x.getAt(1)));
-    result.setAt(2, 1, 2.0 * (x.getAt(1) * x.getAt(2) + w * x.getAt(0)));
-    result.setAt(
-        2, 2, 1.0 - 2.0 * (x.getAt(0) * x.getAt(0) + x.getAt(1) * x.getAt(1)));
+    result.setAt(0, 0,
+                 1.0 - 2 * (x.getAt(1) * x.getAt(1) + x.getAt(2) * x.getAt(2)));
+    result.setAt(0, 1, 2 * (x.getAt(0) * x.getAt(1) - w * x.getAt(2)));
+    result.setAt(0, 2, 2 * (x.getAt(0) * x.getAt(2) + w * x.getAt(1)));
+    result.setAt(1, 0, 2 * (x.getAt(0) * x.getAt(1) + w * x.getAt(2)));
+    result.setAt(1, 1,
+                 1.0 - 2 * (x.getAt(0) * x.getAt(0) + x.getAt(2) * x.getAt(2)));
+    result.setAt(1, 2, 2 * (x.getAt(1) * x.getAt(2) - w * x.getAt(0)));
+    result.setAt(2, 0, 2 * (x.getAt(0) * x.getAt(2) - w * x.getAt(1)));
+    result.setAt(2, 1, 2 * (x.getAt(1) * x.getAt(2) + w * x.getAt(0)));
+    result.setAt(2, 2,
+                 1.0 - 2 * (x.getAt(0) * x.getAt(0) + x.getAt(1) * x.getAt(1)));
 
     return result;
   } else {
@@ -503,18 +511,15 @@ OiMat OiMat::getRotationMatrix(const OiVec& q) {
   // build rotation matrix
   OiMat r(3, 3);
 
-  r.setAt(0, 0,
-          1.0 - 2.0 * (q.getAt(2) * q.getAt(2) + q.getAt(3) * q.getAt(3)));
-  r.setAt(0, 1, 2.0 * (q.getAt(1) * q.getAt(2) - q.getAt(0) * q.getAt(3)));
-  r.setAt(0, 2, 2.0 * (q.getAt(1) * q.getAt(3) + q.getAt(0) * q.getAt(2)));
-  r.setAt(1, 0, 2.0 * (q.getAt(1) * q.getAt(2) + q.getAt(0) * q.getAt(3)));
-  r.setAt(1, 1,
-          1.0 - 2.0 * (q.getAt(1) * q.getAt(1) + q.getAt(3) * q.getAt(3)));
-  r.setAt(1, 2, 2.0 * (q.getAt(2) * q.getAt(3) - q.getAt(0) * q.getAt(1)));
-  r.setAt(2, 0, 2.0 * (q.getAt(1) * q.getAt(3) - q.getAt(0) * q.getAt(2)));
-  r.setAt(2, 1, 2.0 * (q.getAt(2) * q.getAt(3) + q.getAt(0) * q.getAt(1)));
-  r.setAt(2, 2,
-          1.0 - 2.0 * (q.getAt(1) * q.getAt(1) + q.getAt(2) * q.getAt(2)));
+  r.setAt(0, 0, 1.0 - 2 * (q.getAt(2) * q.getAt(2) + q.getAt(3) * q.getAt(3)));
+  r.setAt(0, 1, 2 * (q.getAt(1) * q.getAt(2) - q.getAt(0) * q.getAt(3)));
+  r.setAt(0, 2, 2 * (q.getAt(1) * q.getAt(3) + q.getAt(0) * q.getAt(2)));
+  r.setAt(1, 0, 2 * (q.getAt(1) * q.getAt(2) + q.getAt(0) * q.getAt(3)));
+  r.setAt(1, 1, 1.0 - 2 * (q.getAt(1) * q.getAt(1) + q.getAt(3) * q.getAt(3)));
+  r.setAt(1, 2, 2 * (q.getAt(2) * q.getAt(3) - q.getAt(0) * q.getAt(1)));
+  r.setAt(2, 0, 2 * (q.getAt(1) * q.getAt(3) - q.getAt(0) * q.getAt(2)));
+  r.setAt(2, 1, 2 * (q.getAt(2) * q.getAt(3) + q.getAt(0) * q.getAt(1)));
+  r.setAt(2, 2, 1.0 - 2 * (q.getAt(1) * q.getAt(1) + q.getAt(2) * q.getAt(2)));
 
   /*r.setAt(0, 0, q.getAt(0)*q.getAt(0) + q.getAt(1)*q.getAt(1) -
   q.getAt(2)*q.getAt(2) - q.getAt(3)*q.getAt(3)); r.setAt(0,
@@ -570,8 +575,8 @@ OiVec OiMat::getRotationAngles(const OiMat& r) {
   angles.setAt(1, asin(r.getAt(2, 0)));                   // ry
   angles.setAt(2, atan2(-r.getAt(1, 0), r.getAt(0, 0)));  // rz
   if (abs(cos(angles.getAt(1)) * cos(angles.getAt(2))) - abs(r.getAt(0, 0)) >
-      0.01) {
-    angles.setAt(1, 3.141592653589793 - angles.getAt(1));
+      kAngleBranchTolerance) {
+    angles.setAt(1, std::numbers::pi - angles.getAt(1));
   }
 
   return angles;
@@ -633,25 +638,25 @@ OiVec OiMat::getQuaternion(const double& rx, const double& ry,
   oi::math::OiVec quatVec;
 
   if (factor == 1) {
-    quatVec.add(0.25 * factor2);
+    quatVec.add(kQuarter * factor2);
     quatVec.add((rotMat.getAt(2, 1) - rotMat.getAt(1, 2)) / factor2);
     quatVec.add((rotMat.getAt(0, 2) - rotMat.getAt(2, 0)) / factor2);
     quatVec.add((rotMat.getAt(1, 0) - rotMat.getAt(0, 1)) / factor2);
   } else if (factor == 2) {
     quatVec.add((rotMat.getAt(2, 1) - rotMat.getAt(1, 2)) / factor2);
-    quatVec.add(0.25 * factor2);
+    quatVec.add(kQuarter * factor2);
     quatVec.add((rotMat.getAt(0, 1) + rotMat.getAt(1, 0)) / factor2);
     quatVec.add((rotMat.getAt(0, 2) + rotMat.getAt(2, 0)) / factor2);
   } else if (factor == 3) {
     quatVec.add((rotMat.getAt(0, 2) - rotMat.getAt(2, 0)) / factor2);
     quatVec.add((rotMat.getAt(0, 1) + rotMat.getAt(1, 0)) / factor2);
-    quatVec.add(0.25 * factor2);
+    quatVec.add(kQuarter * factor2);
     quatVec.add((rotMat.getAt(1, 2) + rotMat.getAt(2, 1)) / factor2);
   } else if (factor == 4) {
     quatVec.add((rotMat.getAt(1, 0) - rotMat.getAt(0, 1)) / factor2);
     quatVec.add((rotMat.getAt(0, 2) + rotMat.getAt(2, 0)) / factor2);
     quatVec.add((rotMat.getAt(1, 2) + rotMat.getAt(2, 1)) / factor2);
-    quatVec.add(0.25 * factor2);
+    quatVec.add(kQuarter * factor2);
   }
 
   return quatVec;

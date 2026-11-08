@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "global.h"
@@ -24,9 +25,9 @@ class OI_MATH_EXPORT OiVec {
   explicit OiVec(const int& size);
   OiVec(const OiVec&) = default;
   // A moved-from OiVec is an empty (size 0) vector, which is a valid state.
-  // There is deliberately no move assignment: operator= only accepts a vector
-  // of equal size (or into an empty one) and throws otherwise, so assignment
-  // has to keep going through it.
+  // The move assignment below is a plain copy assignment: operator= only
+  // accepts a vector of equal size (or into an empty one) and throws
+  // otherwise, so assignment has to keep going through it.
   OiVec(OiVec&&) noexcept = default;
   ~OiVec();
 
@@ -48,6 +49,9 @@ class OI_MATH_EXPORT OiVec {
   void replace(const OiVec&);
 
   OiVec& operator=(const OiVec&);
+  // Not noexcept on purpose: it throws on a size mismatch, exactly like
+  // operator=. NOLINTNEXTLINE(cppcoreguidelines-noexcept-move-operations)
+  OiVec& operator=(OiVec&& v) { return *this = std::as_const(v); }
   OiVec operator+(const OiVec&) const;
   OiVec operator-(const OiVec&) const;
   OiVec& operator+=(const OiVec&);

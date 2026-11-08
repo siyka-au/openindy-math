@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "global.h"
@@ -23,6 +24,10 @@ class OI_MATH_EXPORT OiMat {
   OiMat();
   OiMat(const int& rows, const int& cols);
   OiMat(const OiMat&) = default;
+  // Moves are copies: operator= requires equal sizes (or an empty target) and
+  // throws otherwise, so a moved-from matrix must stay a valid, unchanged one.
+  OiMat(OiMat&& m) noexcept : values(m.values), rows(m.rows), cols(m.cols) {}
+  ~OiMat() = default;
 
   static LinearAlgebra* myLinearAlgebra;
 
@@ -44,6 +49,9 @@ class OI_MATH_EXPORT OiMat {
   void setCol(const int& index, const OiVec& col);
 
   OiMat& operator=(const OiMat& m);
+  // Not noexcept on purpose: it throws on a size mismatch, exactly like
+  // operator=. NOLINTNEXTLINE(cppcoreguidelines-noexcept-move-operations)
+  OiMat& operator=(OiMat&& m) { return *this = std::as_const(m); }
   OiMat operator+(const OiMat& m) const;
   OiMat operator-(const OiMat& m) const;
   OiMat& operator+=(const OiMat& m);
